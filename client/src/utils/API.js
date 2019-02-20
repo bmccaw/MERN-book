@@ -4,10 +4,10 @@ require('dotenv').config();
 const GOOGLEAPIKEY = process.env.GOOGLEAPIKEY;
 
 export default {
-  // Gets all books
-  async getHarryPotter () {
-    console.log('retrieving Harry Potter');
-    const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=Harry+Potter&key=AIzaSyCVDcVmQJ0rX1BJ1hHjZAZzu9ayfsg8EqI`);
+  // Gets starter books
+  async getLOTR () {
+    console.log('retrieving Lord of the Rings');
+    const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=Lord+of+the+Rings&key=AIzaSyCVDcVmQJ0rX1BJ1hHjZAZzu9ayfsg8EqI`);
     return res;  
 },
 

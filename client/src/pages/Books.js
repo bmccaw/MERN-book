@@ -17,18 +17,23 @@ class Books extends Component {
   }
 
   loadBooks = () => {
-    API.getHarryPotter()
+    API.getLOTR()
       .then(res => this.setState({ books: res.data.items }))
       .catch(err => console.log(err));
   };
 
-  handleChange = async name => event => {
+  handleChange = event => {
     this.setState({title: event.target.value})
   }
 
-  handleClick = async () => {
-    const books = await API.searchForBook(this.state.title);
-    this.setState({books:books});
+  handleClick = () => {
+    console.log(this.state.title)
+    API.searchForBook(this.state.title)
+    .then(res => this.setState({books: res.data.items}))
+    .catch(err => console.log(err));
+    
+    // const books = await API.searchForBook(this.state.title);
+    // this.setState({books:books});
 }
 
   render() {
@@ -38,14 +43,15 @@ class Books extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>Search for a Book</h1>
-              <input type="text" onChange={this.handleChange}/><button type="submit" onClick={this.handleClick}>Search</button>
+              <input type="text" id="book-search-input" label="Book Search" onChange={this.handleChange}/>
+              <button type="submit" onClick={this.handleClick}>Search</button>
             </Jumbotron>
             {this.state.books.length ? (
               <List>
                 {this.state.books.map(book => (
                   <ListItem key={book.id}>
-                    <img src={book.volumeInfo.imageLinks.thumbnail}/>
-                    <a href={book.volumeInfo.previewLink} target="_blank">
+                    <img alt={book.volumeInfo.title} src={book.volumeInfo.imageLinks.thumbnail}/>
+                    <a href={book.volumeInfo.previewLink} target="_blank" rel="noopener noreferrer">
                       <strong>
                         {book.volumeInfo.title} by {book.volumeInfo.authors.join(", ")}
                       </strong>
