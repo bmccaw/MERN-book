@@ -8,7 +8,8 @@ import { List, ListItem } from "../components/List";
 
 class Books extends Component {
   state = {
-    books: []
+    books: [],
+    title: ""
   };
 
   componentDidMount() {
@@ -21,6 +22,15 @@ class Books extends Component {
       .catch(err => console.log(err));
   };
 
+  handleChange = async name => event => {
+    this.setState({title: event.target.value})
+  }
+
+  handleClick = async () => {
+    const books = await API.searchForBook(this.state.title);
+    this.setState({books:books});
+}
+
   render() {
     return (
       <Container fluid>
@@ -28,6 +38,7 @@ class Books extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>Search for a Book</h1>
+              <input type="text" onChange={this.handleChange}/><button type="submit" onClick={this.handleClick}>Search</button>
             </Jumbotron>
             {this.state.books.length ? (
               <List>
@@ -38,8 +49,8 @@ class Books extends Component {
                       <strong>
                         {book.volumeInfo.title} by {book.volumeInfo.authors.join(", ")}
                       </strong>
-                      <p>{book.volumeInfo.description}</p>
                     </a>
+                    <p>{book.volumeInfo.description}</p>
                     <DeleteBtn />
                   </ListItem>
                 ))}

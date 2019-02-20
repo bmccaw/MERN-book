@@ -1,0 +1,2 @@
+## MERN Books
+This app will allow a user to search for books using the Google Books API as well as save books and delete them. It uses a React front-end and a Mongo database on the backend. It also utilizes Node.js and Express.js for backend. 
