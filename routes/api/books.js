@@ -1,30 +1,16 @@
-const db = require("./models/index.js");
+const router = require("express").Router();
+const booksController = require("../../controllers/booksController");
 
-module.exports = function(app){
-  app.post('/save',async (req,res) => {
-    console.log(req.body);
-    const {id,title,author,description,img,link} = req.body;
-    try{
-      await db.Book.create({
-        id:id,
-        title:title,
-        author: author,
-        description: description,
-        img: img,
-        link: link
-      })
-      res.redirect(`/${id}`);
-    }
-    catch(error){
-      console.log(error);
-      res.error(error);
-    }
-  });
+// Matches with "/api/books"
+router.route("/")
+  .get(booksController.findAll)
+  .post(booksController.create);
 
-  app.delete('/save',async (req,res) => {
-    console.log(`in delete route`);
-    await db.Book.findByIdAndDelete({
-      'id':req.body.id
-    })
-  });
-}
+// Matches with "/api/books/:id"
+router
+  .route("/:id")
+  .get(booksController.findById)
+  .put(booksController.update)
+  .delete(booksController.remove);
+
+module.exports = router;

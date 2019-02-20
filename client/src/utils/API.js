@@ -1,45 +1,32 @@
+import axios from "axios";
 require('dotenv').config();
 
-const APIKEY = process.env.APIKEY;
+const GOOGLEAPIKEY = process.env.GOOGLEAPIKEY;
 
-const API = {
+export default {
+  // Gets all books
+  async getHarryPotter () {
+    console.log('retrieving Harry Potter');
+    const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=Harry+Potter&key=AIzaSyCVDcVmQJ0rX1BJ1hHjZAZzu9ayfsg8EqI`);
+    return res;  
+},
 
-    async getBestSellers () {
-        console.log('retrieving bestsellers');
-        const url = `https://api.nytimes.com/svc/books/v3/lists.json?list-name=hardcover-fiction&api-key=${NYTAPIKEY}`	
-        try {
-            const response = await fetch(url, {
-                headers:{
-                    "Content-Type":"application/json"
-                }
-            });
-            const {results} = await response.json()
-            console.log(results);
-            return results;
-        }
-        catch(error){
-            console.log(error);
-        }
-    },
-
-
-    async searchForBook(query){
-        const concatQuery = query.replace(' ', '+');
-        const url = `https://www.googleapis.com/books/v1/volumes?q=${concatQuery}&key=${GOOGLEAPIKEY}`
-        try{
-            const response = await fetch(url,{
-                method:"GET",
-                headers:{
-                    "Content-Type":"application/json"
-                }
-            });
-            const {results} = await response.json();
-            return results;
-        }
-        catch(error){
-            console.log(error);
-        }
-    }
-}
-
-export default API;
+  async searchForBook (query) {
+    console.log("search for" + query);
+    const concatQuery = query.replace(' ', '+');
+    const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${concatQuery}&key=AIzaSyCVDcVmQJ0rX1BJ1hHjZAZzu9ayfsg8EqI`);
+    return res;
+  },
+  // Gets the book with the given id
+  getBook: function(id) {
+    return axios.get("/api/books/" + id);
+  },
+  // Deletes the book with the given id
+  deleteBook: function(id) {
+    return axios.delete("/api/books/" + id);
+  },
+  // Saves a book to the database
+  saveBook: function(bookData) {
+    return axios.post("/api/books", bookData);
+  }
+};

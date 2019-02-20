@@ -1,33 +1,14 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Styled from 'styled-components';
-import NavBar from './components/NavBar';
-import Search from './components/Search';
-import BookList from './components/BookList';
+import React from "react";
+import Books from "./pages/Books";
+import Nav from "./components/Nav";
 
-export default function App() {
-
-  // const [books, setBooks] = useState([]);
-
-  // useEffect(() => {
-  //   const bestSellers = await.API.getBestSellers();
-  // }, []);
-
+function App() {
   return (
     <div>
-      <NavBar />
-      <Router>
-        <div>
-          <Switch>
-            <Route exact path='/' component={() => <BookList />} />
-            <Route exact path='/search' component={() => <Search />} />
-            {/* <Route exact path='/saved' component={} /> */}
-          </Switch>
-        </div>
-      </Router>
+      <Nav />
+      <Books />
     </div>
   );
+}
 
-
-
-};
+export default App;
