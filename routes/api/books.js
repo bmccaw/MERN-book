@@ -1,8 +1,7 @@
-const db = require('../models/index.js');
+const db = require("./models/index.js");
 
 module.exports = function(app){
   app.post('/save',async (req,res) => {
-    console.log(`in post route`);
     console.log(req.body);
     const {id,title,author,description,img,link} = req.body;
     try{
