@@ -35,6 +35,12 @@ class Books extends Component {
     // const books = await API.searchForBook(this.state.title);
     // this.setState({books:books});
 }
+handleSave = (Title)=>{
+  console.log(Title);
+  API.saveBook({Title: `${Title}`})
+  .then(res => console.log(res))
+  .catch(err=> console.log(err))
+}
 
   render() {
     return (
@@ -57,6 +63,7 @@ class Books extends Component {
                       </strong>
                     </a>
                     <p>{book.volumeInfo.description}</p>
+                    <button books={this.state.books} onClick={this.handleSave}>Save</button>
                     <DeleteBtn />
                   </ListItem>
                 ))}
