@@ -8,9 +8,9 @@ export default {
     const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=Lord+of+the+Rings&key=${APIKEY}`);
     return res;  
 },
-
+  // Searches for books by Title
   async searchForBook (query) {
-    console.log("search for" + query);
+    console.log("search for " + query);
     const concatQuery = query.replace(' ', '+');
     const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${concatQuery}&key=${APIKEY}`);
     return res;

@@ -9,7 +9,7 @@ import { List, ListItem } from "../components/List";
 class Books extends Component {
   state = {
     books: [],
-    title: ""
+    title: ''
   };
 
   componentDidMount() {
@@ -31,9 +31,8 @@ class Books extends Component {
     API.searchForBook(this.state.title)
     .then(res => this.setState({books: res.data.items}))
     .catch(err => console.log(err));
-    
-    // const books = await API.searchForBook(this.state.title);
-    // this.setState({books:books});
+    this.setState({title: ''});
+
 }
 handleSave = (Title)=>{
   console.log(Title);
@@ -49,7 +48,7 @@ handleSave = (Title)=>{
           <Col size="md-12">
             <Jumbotron>
               <h1>Search for a Book</h1>
-              <input type="text" id="book-search-input" label="Book Search" onChange={this.handleChange}/>
+              <input type="text" value={this.state.title} onChange={this.handleChange}/>
               <button type="submit" onClick={this.handleClick}>Search</button>
             </Jumbotron>
             {this.state.books.length ? (
